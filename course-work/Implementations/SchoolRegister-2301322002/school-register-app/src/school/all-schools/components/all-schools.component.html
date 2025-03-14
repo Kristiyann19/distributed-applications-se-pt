@@ -1,0 +1,94 @@
+<div class="container">
+  <form #filterForm="ngForm"
+        (ngSubmit)="get(school)">
+    <div class="form-group">
+      <label for="name"> Име: </label>
+
+      <input type="text"
+             name="name"
+             id="name"
+             class="form-control"
+             [(ngModel)]="school.name" />
+    </div>
+
+    <div class="form-group">
+      <label for="nameAlt"> Анг. Име: </label>
+
+      <input type="text"
+             name="nameAlt"
+             id="nameAlt"
+             class="form-control"
+             [(ngModel)]="school.nameAlt" />
+    </div>
+
+    <div class="form-group">
+      <label for="settlement"> Населено място: </label>
+
+      <input type="text"
+             name="settlement"
+             id="settlement"
+             class="form-control"
+             [(ngModel)]="school.settlement" />
+    </div>
+
+    <div class="form-group">
+      <label for="type"> Тип на училището: </label>
+
+      <select [(ngModel)]="school.type"
+              class="form-control"
+              name="type"
+              id="type">
+        <option></option>
+        <option value="1">Държавно</option>
+        <option value="2">Общинско</option>
+        <option value="3">Частно</option>
+      </select>
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-primary"
+              type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Търси
+      </button>
+      <button *ngIf="userService.currentUser?.role === 1"
+              class="btn btn-outline-primary"
+              routerLink="/add-school">
+        <i class="fa-solid fa-plus"></i>
+        Добави
+      </button>
+    </div>
+  </form>
+
+
+  <div class="row">
+    <div class="col">
+      <ngb-pagination [collectionSize]="this.totalSchoolsCount"
+                      [pageSize]="school.pageSize"
+                      [page]="page"
+                      (pageChange)="OnPageChange($event)"
+                      aria-label="Default pagination" />
+      <label for="card"> {{searchResult.items?.length}} обяви на {{page}} страница </label>
+
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Име</th>
+        <th scope="col">Анг. Име</th>
+        <th scope="col">Населено място</th>
+        <th scope="col">Тип на училището:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let school of searchResult.items">
+        <td>{{ school.name }}</td>
+        <td>{{ school.nameAlt }}</td>
+        <td>{{ school.settlement.name }}</td>
+        <td>{{ schoolTypeEnumLocalization[school.type] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+.container {
+  margin-top: 10rem;
+}
+
+input,
+select {
+  margin-bottom: 1rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+/* input[type=text], [type=number] {
+  border: 2px solid #ccc;
+}
+
+select{
+  border: 2px solid #ccc;
+} */

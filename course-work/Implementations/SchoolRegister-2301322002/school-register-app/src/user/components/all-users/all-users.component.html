@@ -1,0 +1,71 @@
+<div class="container">
+  <form #filterForm="ngForm"
+        (ngSubmit)="get(userDto)">
+    <div class="form-group">
+      <label for="username"> Потребителско име: </label>
+
+      <input type="text"
+             name="username"
+             class="form-control"
+             id="username"
+             [(ngModel)]="userDto.username" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone"> Телефонен номер: </label>
+
+      <input type="text"
+             name="phone"
+             class="form-control"
+             id="phone"
+             [(ngModel)]="userDto.phone" />
+    </div>
+
+    <div class="form-group">
+      <label for="school"> Училище: </label>
+
+      <input type="text"
+             name="school"
+             class="form-control"
+             id="school"
+             [(ngModel)]="userDto.school" />
+    </div>
+
+    <button class="btn btn-primary"
+            type="submit">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Търси
+    </button>
+  </form>
+
+  <div class="row">
+    <div class="col">
+
+      <ngb-pagination [collectionSize]="this.totalUsersCount"
+                      [pageSize]="userDto.pageSize"
+                      [page]="page"
+                      (pageChange)="OnPageChange($event)"
+                      aria-label="Default pagination" />
+      <label for="card"> {{searchResult.items?.length}} обяви на {{page}} страница</label>
+
+
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Потребителско име</th>
+        <th scope="col">Телефон</th>
+        <th scope="col">Училище</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of searchResult.items">
+        <td>{{ user.username }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.school?.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

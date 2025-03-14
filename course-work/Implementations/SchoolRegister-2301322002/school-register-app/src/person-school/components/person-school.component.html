@@ -1,0 +1,96 @@
+<div class="container">
+  <nav>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <button class="btn btn-hover" [routerLink]="['/person', person.id]">
+          Основни данни
+        </button>
+
+        <button
+          [routerLink]="['/person-history', person.id]"
+          class="btn btn-hover"
+          type="button"
+        >
+          История на промени
+        </button>
+        <button
+          [routerLink]="['/person-school', person.id]"
+          class="btn btn-hover"
+          type="button"
+        >
+          Преподавателски длъжности
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <hr />
+
+  <div class="buttons">
+    <button (click)="openAddPersonSchoolModal()" class="btn btn-primary">
+      <i class="fa-solid fa-plus"></i>
+      Добави нова длъжност
+    </button>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Училище</th>
+        <th scope="col">Длъжност (Преподавател по)</th>
+        <th scope="col">От дата:</th>
+        <th scope="col">До дата:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let personSchool of personSchools">
+        <td>
+          {{ person.school?.name }}
+        </td>
+        <td>
+          <select
+            [(ngModel)]="personSchool.position"
+            class="form-control"
+            name="position"
+          >
+            <option [ngValue]="1">Математика</option>
+            <option [ngValue]="2">География</option>
+            <option [ngValue]="3">История</option>
+            <option [ngValue]="4">Биология</option>
+            <option [ngValue]="5">Химия</option>
+            <option [ngValue]="6">Литература</option>
+            <option [ngValue]="7">Английски</option>
+          </select>
+        </td>
+        <td>
+          <input
+            type="date"
+            id="startDate"
+            [ngModel]="personSchool.startDate | date : 'yyyy-MM-dd'"
+            (ngModelChange)="personSchool.startDate = $event"
+            name="startDate"
+            class="form-control"
+            required
+          />
+        </td>
+        <td>
+          <input
+            type="date"
+            id="endDate"
+            [ngModel]="personSchool.endDate | date : 'yyyy-MM-dd'"
+            (ngModelChange)="personSchool.endDate = $event"
+            name="endDate"
+            class="form-control"
+            required
+          />
+        </td>
+        <td>
+          <button (click)="update(personSchool)" class="btn btn-primary">
+            <i class="fa-solid fa-pencil"></i>
+            Редактирай
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
